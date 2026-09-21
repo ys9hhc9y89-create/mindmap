@@ -43,6 +43,8 @@
       <output id="zoomLabel" class="zoom-label">100 %</output>
       <button id="zoomInBtn" class="tool square" aria-label="Vergrößern">＋</button>
       <span class="spacer"></span>
+      <button id="ganttBtn" class="tool secondary">Ganttplan</button>
+      <button id="markdownBtn" class="tool secondary">Markdown</button>
       <button id="importBtn" class="tool secondary">Öffnen</button>
       <button id="saveBtn" class="tool secondary">Datei sichern</button>
       <input id="fileInput" type="file" accept="application/json,.json" hidden>
@@ -79,6 +81,22 @@
         </div>
         <label for="nodeText">Text</label>
         <textarea id="nodeText" rows="3" maxlength="180"></textarea>
+        <label for="nodeNotes">Notiz</label>
+        <div class="rich-toolbar" role="toolbar" aria-label="Notiz formatieren">
+          <button type="button" data-format="bold" aria-label="Fett"><strong>B</strong></button>
+          <button type="button" data-format="italic" aria-label="Kursiv"><em>I</em></button>
+          <button type="button" data-format="underline" aria-label="Unterstrichen"><u>U</u></button>
+          <button type="button" data-format="insertUnorderedList" aria-label="Aufzählung">•</button>
+        </div>
+        <div id="nodeNotes" class="rich-editor" contenteditable="true" role="textbox" aria-label="Notiz"></div>
+        <label for="nodeLink">Ziel-Link</label>
+        <div class="link-field"><input id="nodeLink" type="url" placeholder="https://…"><button id="openLinkBtn" type="button" class="button quiet">Öffnen</button></div>
+        <label for="nodeAssignee">Verantwortlich</label>
+        <input id="nodeAssignee" type="text" maxlength="120" placeholder="Name oder Team">
+        <div class="date-grid">
+          <div><label for="nodeStart">Start</label><input id="nodeStart" type="date"></div>
+          <div><label for="nodeEnd">Ende</label><input id="nodeEnd" type="date"></div>
+        </div>
         <label>Farbe</label>
         <div id="colorPicker" class="color-picker" role="radiogroup" aria-label="Themenfarbe">
           <button data-color="#1f78d1" style="--swatch:#1f78d1" aria-label="Blau"></button>
@@ -100,8 +118,19 @@
       <button data-action="new">Neue Mindmap</button>
       <button data-action="import">Datei öffnen</button>
       <button data-action="save">Datei sichern</button>
+      <button data-action="markdown">Markdown exportieren</button>
+      <button data-action="gantt">Ganttplan öffnen</button>
       <button data-action="fit">Ansicht einpassen</button>
     </div>
+
+    <section id="ganttModal" class="modal" hidden aria-labelledby="ganttTitle" role="dialog" aria-modal="true">
+      <div class="modal-card gantt-card">
+        <div class="modal-head"><div><span class="eyebrow">Projektplanung</span><h2 id="ganttTitle">Ganttplan</h2></div><button id="closeGantt" class="close-btn" aria-label="Ganttplan schließen">×</button></div>
+        <div id="ganttEmpty" class="gantt-empty" hidden>Für einen Ganttplan brauchen Themen ein Start- und ein Enddatum.</div>
+        <div id="ganttView" class="gantt-view"></div>
+        <div class="modal-actions"><button id="printGantt" class="button primary">Drucken / PDF</button><button id="exportGanttMarkdown" class="button quiet">Als Markdown sichern</button></div>
+      </div>
+    </section>
 
     <nav class="mobile-bar" aria-label="Schnellaktionen">
       <button id="mobileBranch"><span>＋</span>Hauptthema</button>

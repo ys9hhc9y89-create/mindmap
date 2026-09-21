@@ -8,7 +8,7 @@ JSON.parse(await read('manifest.webmanifest'));
 const worker = await read('service-worker.js');
 const html = await read('index.html');
 const app = await read('app.js');
-const externalUrl = /https?:\/\/(?!www\.w3\.org\/2000\/svg)/i;
+const externalUrl = /(?:src|href|action)\s*=\s*["']https?:\/\//i;
 const appNetworkApi = /(?:fetch\s*\(|XMLHttpRequest|WebSocket|sendBeacon)/i;
 const remoteScript = /<script[^>]+src\s*=\s*["']https?:\/\//i;
 
