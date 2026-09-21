@@ -1,5 +1,5 @@
 'use strict';
-const CACHE='gedankenraum-offline-v2';
+const CACHE='gedankenraum-offline-v3';
 const APP_FILES=[
   './',
   './index.html',
